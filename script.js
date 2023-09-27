@@ -55,22 +55,5 @@ function scissors(computerSelection) {
 }
 
 function game() {
-  for (let i = 0; i < 5; i++) {
-    let playerChoice;
-    while (true) {
-      playerChoice = prompt(
-        "What do you want to choose? Rock, Paper, or Scissors"
-      );
-      if (playRound(playerChoice) == "false") {
-        alert(
-          "That wasn't a valid response. Please input Rock, Paper, or Scissors"
-        );
-        continue;
-      }
-      break;
-    }
-    console.log(playRound(playerChoice));
-  }
-}
 
-game();
+}
