@@ -13,11 +13,11 @@ function playRound(playerSelection) {
   playerSelection = playerSelection.toLowerCase();
   computerSelection = getComputerChoice();
 
-  if (playerSelection == "rock") {
+  if (playerSelection === "rock") {
     return rock(computerSelection);
   } else if (playerSelection == "paper") {
     return paper(computerSelection);
-  } else if (playerSelection == "scissors") {
+  } else if (playerSelection === "scissors") {
     return scissors(computerSelection);
   } else {
     return "false";
@@ -25,35 +25,70 @@ function playRound(playerSelection) {
 }
 
 function rock(computerSelection) {
-  if (computerSelection == "rock") {
-    return "It's a draw! Rock and Rock";
-  } else if (computerSelection == "paper") {
-    return "You lose! Paper beats Rock";
+  if (computerSelection === "rock") {
+    return 0;
+  } else if (computerSelection === "paper") {
+    return -1;
   } else {
-    return "You win! Rock beats Scissors";
+    return 1;
   }
 }
 
 function paper(computerSelection) {
   if (computerSelection == "rock") {
-    return "You win! Paper beats Rock";
+    return 1;
   } else if (computerSelection == "paper") {
-    return "It's a draw! Paper and Paper";
+    return 0;
   } else {
-    return "You lose! Scissors beats Paper";
+    return -1;
   }
 }
 
 function scissors(computerSelection) {
   if (computerSelection == "rock") {
-    return "You lose! Rock beats Scissors";
+    return -1;
   } else if (computerSelection == "paper") {
-    return "You win! Scissors beats paper";
+    return 1;
   } else {
-    return "It's a draw! Scissors and Scissors";
+    return 0;
   }
 }
 
-function game() {
+// Main Function
+const buttons = document.querySelectorAll("button");
+const displayResult = document.querySelector(".result");
 
-}
+let playerSelection = "";
+let computerScore = 0;
+let playerScore = 0;
+let resultFromRound = 0;
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    playerSelection = button.id;
+    resultFromRound = playRound(playerSelection);
+    if (resultFromRound === 1) {
+      playerScore += 1;
+    } else if (resultFromRound === -1) {
+      computerScore += 1;
+    }
+
+
+    if (resultFromRound === 1) {
+      displayResult.innerHTML = "<h2>You win the round!</h2><br />";
+    } else if (resultFromRound === 0) {
+      displayResult.innerHTML = "<h2>It's a draw!</h2><br />";
+    } else {
+      displayResult.innerHTML = "<h2>You lose the round!</h2><br />";
+    }
+
+    displayResult.innerHTML += `<h2>Score is:<br /> Player: ${playerScore}<br /> Computer: ${computerScore}<br />`;
+    if (playerScore === 5) {
+      displayResult.innerHTML += "<h2>Player Win!</h2>";
+    } else if (computerScore === 5) {
+      displayResult.innerHTML += "<h2>Computer Win!</h2>";
+    } else {
+      displayResult.innerHTML += "<h2>Nobody Win Yet!</h2>";
+    }
+  });
+});
